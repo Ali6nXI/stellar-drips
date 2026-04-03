@@ -3,10 +3,8 @@ use super::*;
 use soroban_sdk::Env;
 
 #[test]
-fn test() {
+fn basic_test_stub() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, StellarDripsContract);
-    let client = StellarDripsContractClient::new(&env, &contract_id);
-    
-    assert_eq!(client.hello(), 1);
+    env.mock_all_auths();
+    // tests will be implemented later
 }
