@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Ensure Rust
+      run: rustup default stable
+    - name: Add wasm target
+      run: rustup target add wasm32-unknown-unknown
+    - name: Run Tests
+      run: cargo test

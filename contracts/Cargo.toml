@@ -1,0 +1,7 @@
+# contracts/Cargo.toml
+
+[workspace]
+members = [
+    "stellar-drips"
+]
+resolver = "2"

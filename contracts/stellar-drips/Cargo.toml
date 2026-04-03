@@ -1,0 +1,13 @@
+[package]
+name = "stellar-drips"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+soroban-sdk = "22.0.1"
+
+[dev_dependencies]
+soroban-sdk = { version = "22.0.1", features = ["testutils"] }
+
+[features]
+testutils = ["soroban-sdk/testutils"]
