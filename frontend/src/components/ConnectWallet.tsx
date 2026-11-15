@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { connectFreighter } from '../services/stellar';
 import { Wallet } from 'lucide-react';
 
-export default function ConnectWallet() {
-  const [wallet, setWallet] = useState<string | null>(null);
+export interface ConnectWalletProps {
+  wallet?: string | null;
+  onWalletChange?: (wallet: string | null) => void;
+}
+
+export default function ConnectWallet({
+  wallet: controlledWallet,
+  onWalletChange,
+}: ConnectWalletProps = {}) {
+  const [internalWallet, setInternalWallet] = useState<string | null>(null);
+  const wallet = controlledWallet !== undefined ? controlledWallet : internalWallet;
 
   const handleConnect = async () => {
     try {
       const pubKey = await connectFreighter();
-      setWallet(pubKey);
+      if (controlledWallet === undefined) {
+        setInternalWallet(pubKey);
+      }
+      onWalletChange?.(pubKey);
     } catch (e) {
       console.error(e);
     }
@@ -22,8 +34,9 @@ export default function ConnectWallet() {
         </span>
       ) : (
         <button
+          type="button"
           onClick={handleConnect}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-full font-semibold transition-colors"
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-semibold text-sm transition-colors"
         >
           <Wallet size={18} />
           <span className="hidden sm:inline">Connect Freighter</span>

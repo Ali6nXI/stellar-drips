@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { claimStream, cancelStream } from '../services/stellar';
 import { Droplet, XCircle } from 'lucide-react';
 
